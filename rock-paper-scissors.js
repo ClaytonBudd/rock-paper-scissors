@@ -1,4 +1,4 @@
-
+playGame();
 
 /** returns random instance of rock paper or scissors**/
 function getComputerChoice(){
@@ -18,19 +18,19 @@ function getPlayerChoice(){
     return playerChoice;     
     }        
 
-const computerSelection = getComputerChoice();
-const playerSelection = getPlayerChoice(); 
-console.log(playRound(playerSelection, computerSelection));
 
+/** Takes in the player and computer's choices and determines who wins the round */
 function playRound(playerSelection, computerSelection){
     let winCondition
     if (playerSelection == 'rock'){
         if (computerSelection == 'scissors'){
             winCondition = 'win'
             
+            
         } if (computerSelection == 'paper'){
             winCondition = 'lose'
             
+
         } if(computerSelection== 'rock'){ 
             winCondition = 'tie'
             
@@ -39,12 +39,14 @@ function playRound(playerSelection, computerSelection){
     if (playerSelection == "paper"){
         if (computerSelection == 'rock'){
             winCondition = 'win'
-           
+            
+
         } if (computerSelection == 'scissors'){
             winCondition = 'lose'
             
+
         } if (computerSelection == 'paper'){
-            wincondition = 'tie'
+            winCondition = 'tie'
             
         }
         }
@@ -52,33 +54,53 @@ function playRound(playerSelection, computerSelection){
         if (computerSelection == 'paper'){
             winCondition = 'win'
             
+
         } if (computerSelection == 'rock'){
             winCondition = 'lose'
             
+
         } if (computerSelection == 'scissors') {
             winCondition = 'tie'
              
         }
     }
-console.log("Computer played " + computerSelection + " you " + winCondition + " this round")
+    console.log("You played " + playerSelection + " Computer played " + computerSelection + " you " + winCondition + " this round")
+    return winCondition
 }
 
 
-/** 
-    compares playerSelection and computerSelection to see which is better
-    return a string that declares winner
-    player selection should be case insensitive
-
-
-            /**     
-function game(){
-    plays 5 rounds keeps score and reports a winner or loser at the end
-    display results of each round
+/** calls 5 instances of play round tallys up win loss tie and prints the result */
+function playGame(){
+    let wins = 0;
+    let losses = 0;
+    let ties = 0;
+    let counter = 0;
+    while (counter < 5){
+        const playerSelection = getPlayerChoice(); 
+        const computerSelection = getComputerChoice();
+        let roundResult = playRound(playerSelection, computerSelection);
+        if (roundResult == 'win'){
+            wins += 1;
+            counter +=1;
+            
+        }else if (roundResult == 'lose'){
+            losses += 1;
+            counter +=1;
+            
+        }else if (roundResult == 'tie'){
+            ties += 1;
+            counter +=1;
+        }
+    
+        
+    } 
+    if (wins > losses && wins > ties) {
+        result = "win"
+    } if (losses > wins && losses > ties){
+        result = "lose"
+    } else{
+        result = 'tie'
+    }
+    console.log("Round is over You " + result);
 }
-
-**/
-
-/** 
-((toString(playerSelection.toLowerCase()) != "rock") || (toString(playerSelection.toLowerCase()) != "paper") || (toString(playerSelection.toLowerCase()) != "scissors")){
-    let playerSelection = prompt("Enter rock paper or scissors");    
-    console.log(playerSelection); **/
+  
