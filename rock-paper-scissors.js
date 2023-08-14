@@ -1,4 +1,3 @@
-playGame();
 
 /** returns random instance of rock paper or scissors**/
 function getComputerChoice(){
@@ -7,7 +6,7 @@ function getComputerChoice(){
     let computerSelection = moves[n]
     return computerSelection;
 }
-/** Prompts player to type in rock paper or scissors and returns the result */
+/** Prompts player to type in rock paper or scissors and returns the result 
 function getPlayerChoice(){    
     let legalMoves = ['rock', 'paper', 'scissors'];
     let playerChoice;
@@ -17,6 +16,19 @@ function getPlayerChoice(){
     }
     return playerChoice;     
     }        
+*/
+
+document.getElementById("rock").addEventListener("click", function(){
+    playRound('rock', getComputerChoice())
+})
+
+document.getElementById("paper").addEventListener("click", function(){
+    playRound('paper', getComputerChoice())
+});
+
+document.getElementById("scissors").addEventListener("click", function(){
+    playRound('scissors', getComputerChoice())
+});
 
 
 /** Takes in the player and computer's choices and determines who wins the round */
@@ -74,26 +86,24 @@ function playGame(){
     let wins = 0;
     let losses = 0;
     let ties = 0;
-    let counter = 0;
-    while (counter < 5){
         const playerSelection = getPlayerChoice(); 
         const computerSelection = getComputerChoice();
         let roundResult = playRound(playerSelection, computerSelection);
         if (roundResult == 'win'){
             wins += 1;
-            counter +=1;
+            
             
         }else if (roundResult == 'lose'){
             losses += 1;
-            counter +=1;
+            
             
         }else if (roundResult == 'tie'){
             ties += 1;
-            counter +=1;
+            
         }
     
         
-    } 
+     
     if (wins > losses && wins > ties) {
         result = "win"
     } if (losses > wins && losses > ties){
