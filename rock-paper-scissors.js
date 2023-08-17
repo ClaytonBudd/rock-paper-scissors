@@ -6,18 +6,8 @@ function getComputerChoice(){
     let computerSelection = moves[n]
     return computerSelection;
 }
-/** Prompts player to type in rock paper or scissors and returns the result 
-function getPlayerChoice(){    
-    let legalMoves = ['rock', 'paper', 'scissors'];
-    let playerChoice;
-    playerChoice = (prompt("please enter a legal move (rock paper or scissors)").toLowerCase());
-    while (legalMoves.includes(playerChoice)== false){
-        playerChoice = (prompt("please enter a legal move (rock paper or scissors)").toLowerCase());
-    }
-    return playerChoice;     
-    }        
-*/
 
+/** Player Selection Listener */
 document.getElementById("rock").addEventListener("click", function(){
     playRound('rock', getComputerChoice())
 })
@@ -30,18 +20,33 @@ document.getElementById("scissors").addEventListener("click", function(){
     playRound('scissors', getComputerChoice())
 });
 
-
-/** Takes in the player and computer's choices and determines who wins the round */
+let wins = 0;
+let losses = 0;
 function playRound(playerSelection, computerSelection){
     let winCondition
+    let gameWinner
+    if ( wins >= 5 || losses >=5 ){
+        if (wins > losses){
+            gameWinner = "YOU WIN"
+        }else{
+            gameWinner = "COMPUTER WINS"
+        } 
+        const gameResult = document.createElement('div')
+        const textFinal = document.createTextNode("Game over " + gameWinner)
+        gameResult.appendChild(textFinal);
+        const element = document.getElementById("results")
+        element.appendChild(gameResult)
+        return; 
+    }
     if (playerSelection == 'rock'){
         if (computerSelection == 'scissors'){
             winCondition = 'win'
+            wins += 1
             
             
         } if (computerSelection == 'paper'){
             winCondition = 'lose'
-            
+            losses += 1
 
         } if(computerSelection== 'rock'){ 
             winCondition = 'tie'
@@ -51,66 +56,38 @@ function playRound(playerSelection, computerSelection){
     if (playerSelection == "paper"){
         if (computerSelection == 'rock'){
             winCondition = 'win'
-            
+            wins += 1
 
         } if (computerSelection == 'scissors'){
             winCondition = 'lose'
-            
+            losses += 1
 
         } if (computerSelection == 'paper'){
             winCondition = 'tie'
             
         }
-        }
+    }
     if (playerSelection == 'scissors'){
         if (computerSelection == 'paper'){
             winCondition = 'win'
-            
+            wins +=1
 
         } if (computerSelection == 'rock'){
             winCondition = 'lose'
-            
+            losses +=1
 
         } if (computerSelection == 'scissors') {
             winCondition = 'tie'
              
         }
     }
-    console.log("You played " + playerSelection + " Computer played " + computerSelection + " you " + winCondition + " this round")
-    return winCondition
-}
 
-
-/** calls 5 instances of play round tallys up win loss tie and prints the result */
-function playGame(){
-    let wins = 0;
-    let losses = 0;
-    let ties = 0;
-        const playerSelection = getPlayerChoice(); 
-        const computerSelection = getComputerChoice();
-        let roundResult = playRound(playerSelection, computerSelection);
-        if (roundResult == 'win'){
-            wins += 1;
-            
-            
-        }else if (roundResult == 'lose'){
-            losses += 1;
-            
-            
-        }else if (roundResult == 'tie'){
-            ties += 1;
-            
-        }
     
-        
-     
-    if (wins > losses && wins > ties) {
-        result = "win"
-    } if (losses > wins && losses > ties){
-        result = "lose"
-    } else{
-        result = 'tie'
-    }
-    console.log("Round is over You " + result);
+    const roundResult = document.createElement('div');
+    const textResult = document.createTextNode("You played " + playerSelection + ", Computer played " + computerSelection + ", you " + winCondition + " this round. The score is currently Player: " + wins + " Computer : " + losses)
+    roundResult.appendChild(textResult);
+    const element = document.getElementById("results")
+    element.appendChild(roundResult);
 }
-  
+
+
